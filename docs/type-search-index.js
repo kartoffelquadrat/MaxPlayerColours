@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"eu.kartoffelquadrat.maxplayercolours","l":"PlayColourUtilsTest"},{"p":"eu.kartoffelquadrat.maxplayercolours","l":"PlayerColourUtils"},{"p":"eu.kartoffelquadrat.maxplayercolours","l":"PlayerColourUtilsException"}]
