@@ -22,7 +22,7 @@ public class PlayerColourUtils {
      * @return 2D-color array of size @{setSize}. Produces values are RGB triplets in sRGB space. First position
      * represents the max-saturated equivalent of the origin.
      */
-    public int[][] generateColourSet(int originR, int originG, int originB, int targetArraySize) throws PlayerColourUtilsException {
+    public static int[][] generateColourSet(int originR, int originG, int originB, int targetArraySize) throws PlayerColourUtilsException {
 
         // Reject invalid target-size requests
         if (targetArraySize < 2)
@@ -42,11 +42,12 @@ public class PlayerColourUtils {
 
     /**
      * Based on a single orig
+     *
      * @param originHue
      * @param targetArraySize
      * @return
      */
-    private int[][] generateMaxDistanceSet(float originHue, int targetArraySize) {
+    private static int[][] generateMaxDistanceSet(float originHue, int targetArraySize) {
 
         // target values must max out hue distance in colour space. Space available is 1.0, so we split it by the mount of requests colours.
         float optimalHueDistance = 1.0f / targetArraySize;
@@ -59,6 +60,7 @@ public class PlayerColourUtils {
             float targetHue = (i * optimalHueDistance + originHue) % 1;
 
             // Convert to RGB and store in target array.
+            targetColours[i] = new int[3];
             Color targetHSB = Color.getHSBColor(targetHue, 1.0f, 1.0f);
             targetColours[i][0] = targetHSB.getRed();
             targetColours[i][1] = targetHSB.getGreen();
@@ -76,7 +78,7 @@ public class PlayerColourUtils {
      * @param originG int value for origin colour Green channel. Must be in range 0-255.
      * @param originB int value for origin colour Blue channel. Must be in range 0-255.
      */
-    private void verifyIsValidNonGreyScaleSRGB(int originR, int originG, int originB) throws PlayerColourUtilsException {
+    private static void verifyIsValidNonGreyScaleSRGB(int originR, int originG, int originB) throws PlayerColourUtilsException {
 
         // Verify that the individual channels are in correct range.
         boolean validChanelRanges = isValidChannelValue(originR) && isValidChannelValue(originB) && isValidChannelValue(originG);
@@ -95,7 +97,7 @@ public class PlayerColourUtils {
      * @param value as the number to test for target range.
      * @return whether the provided value is in target range or not.
      */
-    private boolean isValidChannelValue(int value) {
+    private static boolean isValidChannelValue(int value) {
         return value >= 0 && value <= 255;
     }
 
@@ -109,7 +111,7 @@ public class PlayerColourUtils {
      * @return float as target hue value in HSB room, if saturation and brightness of the provided sRBG input colour
      * boosted to max.
      */
-    private float extractHue(int originR, int originG, int originB) {
+    private static float extractHue(int originR, int originG, int originB) {
 
         // Convert input sRBG colour from cube to HSB room.
         float[] hsbColour = new float[3];

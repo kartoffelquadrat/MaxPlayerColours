@@ -1,17 +1,17 @@
 package eu.kartoffelquadrat.maxplayercolours;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class PlayColourUtilsTest {
 
+    /**
+     * Tests the creation of a set of size two, where the provided origin value is red: (255,0,0). Expected output is an
+     * array of two with red and it's complementary colour (Cyan).
+     */
     @Test
-    public void myFirstUnitTest() {
-        assertSame("Potatoes", "Potatoes");
+    public void testSetOfTwo() throws PlayerColourUtilsException {
+        int[][] colours = PlayerColourUtils.generateColourSet(255, 0, 0, 2);
+        assert colours.length == 2;
     }
 
-    @Test
-    public void mySecondUnitTest() {
-        assertSame("Squares", "Squares");
-    }
 }
