@@ -10,6 +10,12 @@ import java.awt.*;
  */
 public class PlayerColourUtils {
 
+    // Various error messages used for raising exceptions on input validation.
+    public static final String CHANNEL_OUT_OF_BOUNDS_ERROR_MESSAGE = "Origin colour must use rgb channels in range [0-255].";
+    public static final String ORIGIN_IS_GREYSCALE_ERROR_MESSAGE = "Origin colour must have hue. (Greyscale not allowed)";
+    public static final String TARGET_MIN_SIZE_ERROR_MESSAGE = "Target array size must be at least 2.";
+    public static final String TARGET_MAX_SIZE_ERROR_MESSAGE = "Target colours are hard to distinguish for values > 8. Cowardly refusing to compute colours.";
+
     /**
      * Produces an array of n sRGB colours, based on a single origin sRGB colour. The origin colour will be maximized in
      * HSV saturation. All produced colours have also maximized HSB saturation and have a mutually maximized hue
@@ -26,9 +32,9 @@ public class PlayerColourUtils {
 
         // Reject invalid target-size requests
         if (targetArraySize < 2)
-            throw new PlayerColourUtilsException("Target array size must be at least 2.");
+            throw new PlayerColourUtilsException(TARGET_MIN_SIZE_ERROR_MESSAGE);
         if (targetArraySize > 8)
-            throw new PlayerColourUtilsException("Target colours are hard to distinguish for values > 8. Cowardly refusing to compute colours.");
+            throw new PlayerColourUtilsException(TARGET_MAX_SIZE_ERROR_MESSAGE);
 
         // Reject if invalid origin colour (channels out of range / origin is on greyscale)
         verifyIsValidNonGreyScaleSRGB(originR, originG, originB);
@@ -83,12 +89,12 @@ public class PlayerColourUtils {
         // Verify that the individual channels are in correct range.
         boolean validChanelRanges = isValidChannelValue(originR) && isValidChannelValue(originB) && isValidChannelValue(originG);
         if (!validChanelRanges)
-            throw new PlayerColourUtilsException("Origin colour must use rgb channels in range [0-255].");
+            throw new PlayerColourUtilsException(CHANNEL_OUT_OF_BOUNDS_ERROR_MESSAGE);
 
         // Verify the provided colour can be saturated (is not a greyscale colour).
         boolean greyScaleColour = (originR == originG) && (originG == originB);
         if (greyScaleColour)
-            throw new PlayerColourUtilsException("Origin colour must have hue. (Greyscale not allowed)");
+            throw new PlayerColourUtilsException(ORIGIN_IS_GREYSCALE_ERROR_MESSAGE);
     }
 
     /**
