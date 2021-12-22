@@ -15,6 +15,8 @@ public class PlayColourUtilsTest {
     /**
      * Tests the creation of a set of size two, where the provided origin value is red: (255,0,0). Expected output is an
      * array of two with red and it's complementary colour (Cyan: 0,255,255).
+     *
+     * @throws PlayerColourUtilsException raises an exception if colour production fails. Is not expected to fail.
      */
     @Test
     public void testSetOfTwo() throws PlayerColourUtilsException {
@@ -36,8 +38,10 @@ public class PlayColourUtilsTest {
     }
 
     /**
-     * Tests the creation of a set of size two, where the provided origin value is unsaturated red: (5,0,0). Expected output is an
-     * array of three with fully saturated red, green, blue
+     * Tests the creation of a set of size two, where the provided origin value is unsaturated red: (5,0,0). Expected
+     * output is an array of three with fully saturated red, green, blue.
+     *
+     * @throws PlayerColourUtilsException raises an exception if colour production fails. Is not expected to fail.
      */
     @Test
     public void testUnsaturatedSetOfThree() throws PlayerColourUtilsException {
@@ -67,7 +71,7 @@ public class PlayColourUtilsTest {
      * Tests if various greyscale origin values are rejected.
      */
     @Test
-    public void testGreyScaleInput() throws PlayerColourUtilsException {
+    public void testGreyScaleInput() {
 
         // Test black
         Exception exception = assertThrows(PlayerColourUtilsException.class, () -> PlayerColourUtils.generateColourSet(0, 0, 0, 2));
@@ -83,12 +87,11 @@ public class PlayColourUtilsTest {
     }
 
 
-
     /**
      * Tests if input value with channel out of bounds is rejected.
      */
     @Test
-    public void testOriginColourOutOfBounds() throws PlayerColourUtilsException {
+    public void testOriginColourOutOfBounds() {
 
         // Test exceeding red
         Exception exception = assertThrows(PlayerColourUtilsException.class, () -> PlayerColourUtils.generateColourSet(1000, 0, 0, 2));
@@ -103,14 +106,14 @@ public class PlayColourUtilsTest {
      * Tests if input value with channel out of bounds is rejected.
      */
     @Test
-    public void testTargetColoursSizeOutOfBounds() throws PlayerColourUtilsException {
+    public void testTargetColoursSizeOutOfBounds() {
 
         // Test not enough target colours
         Exception exception = assertThrows(PlayerColourUtilsException.class, () -> PlayerColourUtils.generateColourSet(255, 0, 0, 1));
         assertTrue(exception.getMessage().equals(PlayerColourUtils.TARGET_MIN_SIZE_ERROR_MESSAGE));
 
         // Test too many target colours
-        exception = assertThrows(PlayerColourUtilsException.class, () -> PlayerColourUtils.generateColourSet(255, 0, 0, 11));
+        exception = assertThrows(PlayerColourUtilsException.class, () -> PlayerColourUtils.generateColourSet(255, 0, 0, 9));
         assertTrue(exception.getMessage().equals(PlayerColourUtils.TARGET_MAX_SIZE_ERROR_MESSAGE));
 
     }

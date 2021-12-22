@@ -16,6 +16,9 @@ public class PlayerColourUtils {
     public static final String TARGET_MIN_SIZE_ERROR_MESSAGE = "Target array size must be at least 2.";
     public static final String TARGET_MAX_SIZE_ERROR_MESSAGE = "Target colours are hard to distinguish for values > 8. Cowardly refusing to compute colours.";
 
+    // Amount of hues at most produces (can be lifted, but then colours are harder to distinguish)
+    public static final int MAX_COLOUR_RANGE = 8;
+
     /**
      * Produces an array of n sRGB colours, based on a single origin sRGB colour. The origin colour will be maximized in
      * HSV saturation. All produced colours have also maximized HSB saturation and have a mutually maximized hue
@@ -27,13 +30,14 @@ public class PlayerColourUtils {
      * @param targetArraySize int value to specify the amount of desired colours in the target colour array.
      * @return 2D-color array of size @{setSize}. Produces values are RGB triplets in sRGB space. First position
      * represents the max-saturated equivalent of the origin.
+     * @throws PlayerColourUtilsException if a provided colour channel is out of range, the channels add up to a greyscale colour, or the target array size is not in valid range [2-8]
      */
     public static int[][] generateColourSet(int originR, int originG, int originB, int targetArraySize) throws PlayerColourUtilsException {
 
         // Reject invalid target-size requests
         if (targetArraySize < 2)
             throw new PlayerColourUtilsException(TARGET_MIN_SIZE_ERROR_MESSAGE);
-        if (targetArraySize > 8)
+        if (targetArraySize > MAX_COLOUR_RANGE)
             throw new PlayerColourUtilsException(TARGET_MAX_SIZE_ERROR_MESSAGE);
 
         // Reject if invalid origin colour (channels out of range / origin is on greyscale)
@@ -49,9 +53,10 @@ public class PlayerColourUtils {
     /**
      * Based on a single orig
      *
-     * @param originHue
-     * @param targetArraySize
-     * @return
+     * @param originHue       as the hue serving as fixpoint for the rotation shift of all produced colours on the HSB
+     *                        hue circle.
+     * @param targetArraySize as the amount of colours to produce (includes the origin).
+     * @return 2D int array listing RGB triplets [0-255] per channel for all produced colours.
      */
     private static int[][] generateMaxDistanceSet(float originHue, int targetArraySize) {
 
@@ -83,6 +88,8 @@ public class PlayerColourUtils {
      * @param originR int value for origin colour Red channel. Must be in range 0-255.
      * @param originG int value for origin colour Green channel. Must be in range 0-255.
      * @param originB int value for origin colour Blue channel. Must be in range 0-255.
+     * @throws PlayerColourUtilsException in case the provided origin RGB represents a colour without hue (a greyscale
+     *                                    colour).
      */
     private static void verifyIsValidNonGreyScaleSRGB(int originR, int originG, int originB) throws PlayerColourUtilsException {
 
