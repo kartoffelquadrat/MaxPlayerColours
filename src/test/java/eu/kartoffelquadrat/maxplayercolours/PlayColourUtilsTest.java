@@ -13,6 +13,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class PlayColourUtilsTest {
 
     /**
+     * Default constructor.
+     */
+    PlayColourUtilsTest() {
+    }
+
+    /**
      * Tests the creation of a set of size two, where the provided origin value is red: (255,0,0). Expected output is an
      * array of two with red and it's complementary colour (Cyan: 0,255,255).
      *
@@ -113,7 +119,7 @@ public class PlayColourUtilsTest {
         assertTrue(exception.getMessage().equals(PlayerColourUtils.TARGET_MIN_SIZE_ERROR_MESSAGE));
 
         // Test too many target colours
-        exception = assertThrows(PlayerColourUtilsException.class, () -> PlayerColourUtils.generateColourSet(255, 0, 0, 9));
+        exception = assertThrows(PlayerColourUtilsException.class, () -> PlayerColourUtils.generateColourSet(255, 0, 0, PlayerColourUtils.MAX_COLOUR_RANGE + 1));
         assertTrue(exception.getMessage().equals(PlayerColourUtils.TARGET_MAX_SIZE_ERROR_MESSAGE));
 
     }

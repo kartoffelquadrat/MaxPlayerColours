@@ -10,14 +10,32 @@ import java.awt.*;
  */
 public class PlayerColourUtils {
 
-    // Various error messages used for raising exceptions on input validation.
+    /**
+     * Error message raised when a provided R/G/B input channel is out of bounds [0-255].
+     */
     public static final String CHANNEL_OUT_OF_BOUNDS_ERROR_MESSAGE = "Origin colour must use rgb channels in range [0-255].";
+    /**
+     * Error message raised when the provided origin colour has no hue (is on greyscale pallet).
+     */
     public static final String ORIGIN_IS_GREYSCALE_ERROR_MESSAGE = "Origin colour must have hue. (Greyscale not allowed)";
+    /**
+     * Error message raised when the requested target colour size is too small.
+     */
     public static final String TARGET_MIN_SIZE_ERROR_MESSAGE = "Target array size must be at least 2.";
+    /**
+     * Error message raised when the requested target colour size is too big.
+     */
     public static final String TARGET_MAX_SIZE_ERROR_MESSAGE = "Target colours are hard to distinguish for values > 8. Cowardly refusing to compute colours.";
+    /**
+     * Amount of hues at most produces (can be lifted, but then colours are harder to distinguish)
+     */
+    public static final int MAX_COLOUR_RANGE = 10;
 
-    // Amount of hues at most produces (can be lifted, but then colours are harder to distinguish)
-    public static final int MAX_COLOUR_RANGE = 8;
+    /**
+     * Default Constructor. Not needed - the only required method (generateColourSet) is public/static.
+     */
+    private PlayerColourUtils() {
+    }
 
     /**
      * Produces an array of n sRGB colours, based on a single origin sRGB colour. The origin colour will be maximized in
@@ -30,7 +48,8 @@ public class PlayerColourUtils {
      * @param targetArraySize int value to specify the amount of desired colours in the target colour array.
      * @return 2D-color array of size @{setSize}. Produces values are RGB triplets in sRGB space. First position
      * represents the max-saturated equivalent of the origin.
-     * @throws PlayerColourUtilsException if a provided colour channel is out of range, the channels add up to a greyscale colour, or the target array size is not in valid range [2-8]
+     * @throws PlayerColourUtilsException if a provided colour channel is out of range, the channels add up to a
+     *                                    greyscale colour, or the target array size is not in valid range [2-8]
      */
     public static int[][] generateColourSet(int originR, int originG, int originB, int targetArraySize) throws PlayerColourUtilsException {
 
