@@ -3,27 +3,27 @@ package eu.kartoffelquadrat.maxplayercolours;
 import java.awt.*;
 
 /**
- * Helper class to create human distinguishable set of colours. Generated colours have maximized saturation and value in
- * HSV room. The produces colours have maximized hue distance in HSB room.
+ * Helper class to create human distinguishable pallet of colours. Generated colours have maximized saturation and value
+ * in HSB room. The produced colours have maximized pairwise hue distance in HSB room.
  *
  * @author Maximilian Schiedermeier
  */
 public class PlayerColourUtils {
 
     /**
-     * Error message raised when a provided R/G/B input channel is out of bounds [0-255].
+     * Error message that is raised when a provided R/G/B input channel is out of bounds [0-255].
      */
     public static final String CHANNEL_OUT_OF_BOUNDS_ERROR_MESSAGE = "Origin colour must use rgb channels in range [0-255].";
     /**
-     * Error message raised when the provided origin colour has no hue (is on greyscale pallet).
+     * Error message that is raised when the provided origin colour has no hue (is on greyscale pallet).
      */
     public static final String ORIGIN_IS_GREYSCALE_ERROR_MESSAGE = "Origin colour must have hue. (Greyscale not allowed)";
     /**
-     * Error message raised when the requested target colour size is too small.
+     * Error message that is raised when the requested target colour size is too small.
      */
     public static final String TARGET_MIN_SIZE_ERROR_MESSAGE = "Target array size must be at least 2.";
     /**
-     * Error message raised when the requested target colour size is too big.
+     * Error message that is raised when the requested target colour size is too big.
      */
     public static final String TARGET_MAX_SIZE_ERROR_MESSAGE = "Target colours are hard to distinguish for values > 8. Cowardly refusing to compute colours.";
     /**
