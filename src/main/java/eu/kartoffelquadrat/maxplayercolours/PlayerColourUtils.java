@@ -70,7 +70,9 @@ public class PlayerColourUtils {
     }
 
     /**
-     * Based on a single orig
+     * Takes a single origin hue as starting point for the generation of an array of n colours. The generated colours
+     * have maximized pairwise hue distance and all maximized Saturation and Value (Brightness) in an HSB room
+     * representation. The generated result colours are encoded in RGB notation.
      *
      * @param originHue       as the hue serving as fixpoint for the rotation shift of all produced colours on the HSB
      *                        hue circle.
