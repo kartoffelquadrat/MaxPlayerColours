@@ -26,7 +26,7 @@ public class PlayColourUtilsTest {
      */
     @Test
     public void testSetOfTwo() throws PlayerColourUtilsException {
-        int[][] colours = PlayerColourUtils.generateColourSet(255, 0, 0, 2);
+        int[][] colours = PlayerColourUtils.generateOptimalColours(255, 0, 0, 2);
 
         // Verify two target colours were produced
         assert colours.length == 2;
@@ -51,7 +51,7 @@ public class PlayColourUtilsTest {
      */
     @Test
     public void testUnsaturatedSetOfThree() throws PlayerColourUtilsException {
-        int[][] colours = PlayerColourUtils.generateColourSet(5, 0, 0, 3);
+        int[][] colours = PlayerColourUtils.generateOptimalColours(5, 0, 0, 3);
 
         // Verify two target colours were produced
         assert colours.length == 3;
@@ -80,15 +80,15 @@ public class PlayColourUtilsTest {
     public void testGreyScaleInput() {
 
         // Test black
-        Exception exception = assertThrows(PlayerColourUtilsException.class, () -> PlayerColourUtils.generateColourSet(0, 0, 0, 2));
+        Exception exception = assertThrows(PlayerColourUtilsException.class, () -> PlayerColourUtils.generateOptimalColours(0, 0, 0, 2));
         assertTrue(exception.getMessage().equals("Origin colour must have hue. (Greyscale not allowed)"));
 
         // Test greyscale
-        exception = assertThrows(PlayerColourUtilsException.class, () -> PlayerColourUtils.generateColourSet(42, 42, 42, 2));
+        exception = assertThrows(PlayerColourUtilsException.class, () -> PlayerColourUtils.generateOptimalColours(42, 42, 42, 2));
         assertTrue(exception.getMessage().equals("Origin colour must have hue. (Greyscale not allowed)"));
 
         // Test white
-        exception = assertThrows(PlayerColourUtilsException.class, () -> PlayerColourUtils.generateColourSet(255, 255, 255, 2));
+        exception = assertThrows(PlayerColourUtilsException.class, () -> PlayerColourUtils.generateOptimalColours(255, 255, 255, 2));
         assertTrue(exception.getMessage().equals("Origin colour must have hue. (Greyscale not allowed)"));
     }
 
@@ -100,11 +100,11 @@ public class PlayColourUtilsTest {
     public void testOriginColourOutOfBounds() {
 
         // Test exceeding red
-        Exception exception = assertThrows(PlayerColourUtilsException.class, () -> PlayerColourUtils.generateColourSet(1000, 0, 0, 2));
+        Exception exception = assertThrows(PlayerColourUtilsException.class, () -> PlayerColourUtils.generateOptimalColours(1000, 0, 0, 2));
         assertTrue(exception.getMessage().equals(PlayerColourUtils.CHANNEL_OUT_OF_BOUNDS_ERROR_MESSAGE));
 
         // Test negative blue
-        exception = assertThrows(PlayerColourUtilsException.class, () -> PlayerColourUtils.generateColourSet(0, 0, -42, 2));
+        exception = assertThrows(PlayerColourUtilsException.class, () -> PlayerColourUtils.generateOptimalColours(0, 0, -42, 2));
         assertTrue(exception.getMessage().equals(PlayerColourUtils.CHANNEL_OUT_OF_BOUNDS_ERROR_MESSAGE));
     }
 
@@ -115,11 +115,11 @@ public class PlayColourUtilsTest {
     public void testTargetColoursSizeOutOfBounds() {
 
         // Test not enough target colours
-        Exception exception = assertThrows(PlayerColourUtilsException.class, () -> PlayerColourUtils.generateColourSet(255, 0, 0, 1));
+        Exception exception = assertThrows(PlayerColourUtilsException.class, () -> PlayerColourUtils.generateOptimalColours(255, 0, 0, 1));
         assertTrue(exception.getMessage().equals(PlayerColourUtils.TARGET_MIN_SIZE_ERROR_MESSAGE));
 
         // Test too many target colours
-        exception = assertThrows(PlayerColourUtilsException.class, () -> PlayerColourUtils.generateColourSet(255, 0, 0, PlayerColourUtils.MAX_COLOUR_RANGE + 1));
+        exception = assertThrows(PlayerColourUtilsException.class, () -> PlayerColourUtils.generateOptimalColours(255, 0, 0, PlayerColourUtils.MAX_COLOUR_RANGE + 1));
         assertTrue(exception.getMessage().equals(PlayerColourUtils.TARGET_MAX_SIZE_ERROR_MESSAGE));
 
     }

@@ -51,7 +51,7 @@ public class PlayerColourUtils {
      * @throws PlayerColourUtilsException if a provided colour channel is out of range, the channels add up to a
      *                                    greyscale colour, or the target array size is not in valid range [2-8]
      */
-    public static int[][] generateColourSet(int originR, int originG, int originB, int targetArraySize) throws PlayerColourUtilsException {
+    public static int[][] generateOptimalColours(int originR, int originG, int originB, int targetArraySize) throws PlayerColourUtilsException {
 
         // Reject invalid target-size requests
         if (targetArraySize < 2)
