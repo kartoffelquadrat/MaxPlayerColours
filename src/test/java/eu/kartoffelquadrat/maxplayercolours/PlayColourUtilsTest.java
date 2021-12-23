@@ -51,7 +51,7 @@ public class PlayColourUtilsTest {
      */
     @Test
     public void testUnsaturatedSetOfThree() throws PlayerColourUtilsException {
-        int[][] colours = PlayerColourUtils.generateColourSet(255, 0, 0, 3);
+        int[][] colours = PlayerColourUtils.generateColourSet(5, 0, 0, 3);
 
         // Verify two target colours were produced
         assert colours.length == 3;
