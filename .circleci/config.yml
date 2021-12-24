@@ -26,6 +26,10 @@ jobs:
       - run:
           name: Test
           command: mvn test
+      # Store the tests result so we can build a badge
+      - store_artifacts:
+          path: test-reports/
+          destination: MaxPlayerColours
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
