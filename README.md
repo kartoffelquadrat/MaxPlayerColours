@@ -2,9 +2,7 @@
 
 [![CircleCI](https://circleci.com/gh/kartoffelquadrat/MaxPlayerColours.svg?style=svg)](https://circleci.com/gh/kartoffelquadrat/MaxPlayerColours)
 ![version](https://img.shields.io/badge/version-1.0.0-brightgreen)
-![building](https://img.shields.io/badge/build-passing-brightgreen)
 ![coverage](https://img.shields.io/badge/coverage-100%25-brightgreen)
-![tests](https://img.shields.io/badge/tests-passing-brightgreen)
 
 A tiny helper tool to optimize colours of board game players.
 
