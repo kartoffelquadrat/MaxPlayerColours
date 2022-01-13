@@ -63,7 +63,7 @@ Below is a short snippet of how to invoke the library:
  
 ```java
 // Define reference colour (is only optimized in *Saturation* and *Value*, keeps *Hue*).
-// Use any values in range [0-255]. Must not be a greyscale colour.
+// Use any values in range [0 to 255]. Must not be a greyscale colour.
 int r = 200;
 int g = 0;
 int b = 0;
